@@ -3,14 +3,17 @@ import 'package:draw/draw.dart';
 
 import 'generated/post.pb.dart' as RedditData;
 
+import 'credentials.dart';
+
 Future<void> main() async {
+  Credentials c = new Credentials();
   // Create the `Reddit` instance and authenticated
   Reddit reddit = await Reddit.createScriptInstance(
-    clientId: 'xPa9bqSAzCHW_Q',
-    clientSecret: '',
-    userAgent: 'boredforreddit',
-    username: "fredfishz",
-    password: "fake", // Fake
+    clientId: c.clientId,
+    clientSecret: c.clientSecret,
+    userAgent: c.userAgent,
+    username: c.username,
+    password: c.password,
   );
 
   // Retrieve information for the currently authenticated user
