@@ -1,3 +1,7 @@
+Current working version demo:
+
+![alt text]("https://github.com/schen22/boredForReddit/blob/master/assets/demo-0.mov")
+
 ## generate [gRPC code](https://grpc.io/docs/quickstart/dart/)
 
 `$ protoc --dart_out=grpc:lib/generated -Iprotos protos/post.proto`
