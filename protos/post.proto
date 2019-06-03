@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+service Reddit {
+  // Gets a specific subreddit
+  rpc GetSubReddit (SubRedditRequest) returns (SubReddit) {}
+}
+
+message Post {
+  optional string id = 1;
+  optional string title = 2;
+  optional string url = 3;
+  optional string body = 4;
+  optional int32 score = 5;
+  optional float upvote_ratio = 6;
+}
+
+message SubReddit {
+  repeated Post posts = 1;
+}
+
+message SubRedditRequest {
+  optional string name = 1;
+}
