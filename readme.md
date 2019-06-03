@@ -1,6 +1,6 @@
 Current working version demo:
 
-![alt text]("https://github.com/schen22/boredForReddit/blob/master/assets/demo-0.mov")
+![alt text](https://im2.ezgif.com/tmp/ezgif-2-7441eb611db3.gif)
 
 ## generate [gRPC code](https://grpc.io/docs/quickstart/dart/)
 
