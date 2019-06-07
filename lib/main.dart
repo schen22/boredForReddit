@@ -51,14 +51,14 @@ class WholesomeMemes extends State<WholesomeMemesApp> {
           Container(
             padding: EdgeInsets.symmetric(vertical:20.0),
             child: Text(
-              _isLoading ? 'loading...' : _meme.title,
+              (_isLoading || _meme?.title == null) ? 'loading...' : _meme.title,
               style: TextStyle(color: Colors.white, fontSize: 20.0),
             ),
           ),
           Container(
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom:20.0),
-            child:_isLoading ? 
+            child:_isLoading || (_meme?.url == null) ? 
               new CircularProgressIndicator() : 
               Image.network(_meme.url.toString(), fit:BoxFit.scaleDown),
           ),
@@ -66,7 +66,7 @@ class WholesomeMemes extends State<WholesomeMemesApp> {
             child:RaisedButton(
               onPressed: fetchMeme,
               child: const Text(
-                'Next Wholesomeness',
+                'Next WholesomeMeme',
                 style: TextStyle(fontSize: 20)
               ),
             ),
@@ -80,10 +80,12 @@ class WholesomeMemes extends State<WholesomeMemesApp> {
     setState(() {
       _isLoading = true;
     });
-    Submission meme = await _service.getWholesomeMeme();
-    setState(() {
-      _isLoading = false;
-      _meme = meme;
-    });
+    if (_service != null) {
+      Submission meme = await _service.getWholesomeMeme();
+      setState(() {
+        _isLoading = false;
+        _meme = meme;
+      });
+    }
   }  
 }
