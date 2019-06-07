@@ -32,55 +32,58 @@ class WholesomeMemes extends State<WholesomeMemesApp> {
 
   RedditService _service;
   Submission _meme;
+  bool _isLoading;
 
   @override
   void initState() {
     super.initState();
     _service = RedditService();
     _meme = null;
+    _isLoading = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    return new FutureBuilder(
-      future: fetchMeme(),//loadMemeSource(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          _meme = snapshot.data;
-          return new Center(
-            child: ListView(
-              padding: const EdgeInsets.all(10.0),
-              children: [
-                Container(
-                  padding:EdgeInsets.symmetric(vertical:20.0),
-                  child: Text(
-                    _meme.title,
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
-                  ),
-                ),
-                Container(
-                  // alignment: Alignment.center,
-                  child:Image.network(_meme.url.toString(), fit:BoxFit.scaleDown),
-                ),
-              ]
-            )
-          );
-        } else if (snapshot.hasError) {
-          return Text('qb sad error: ${snapshot.error}');
-        } else {
-          return new Center(child: new CircularProgressIndicator());
-        }
-      }
+    return new Center(
+      child: ListView(
+        padding: const EdgeInsets.all(10.0),
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical:20.0),
+            child: Text(
+              _isLoading ? 'loading...' : _meme.title,
+              style: TextStyle(color: Colors.white, fontSize: 20.0),
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(bottom:20.0),
+            child:_isLoading ? 
+              new CircularProgressIndicator() : 
+              Image.network(_meme.url.toString(), fit:BoxFit.scaleDown),
+          ),
+          Container(
+            child:RaisedButton(
+              onPressed: fetchMeme,
+              child: const Text(
+                'Next Wholesomeness',
+                style: TextStyle(fontSize: 20)
+              ),
+            ),
+          )
+        ]
+      ) 
     );
   }
 
-  Future<Submission> fetchMeme() async {
-    return _service.getWholesomeMeme();
-  }
-
-  Future<String> loadMemeSource() async {
-    Submission wholesomeMeme = await _service.getWholesomeMeme();
-    return wholesomeMeme.url.toString();
-  }
-
+  fetchMeme() async {
+    setState(() {
+      _isLoading = true;
+    });
+    Submission meme = await _service.getWholesomeMeme();
+    setState(() {
+      _isLoading = false;
+      _meme = meme;
+    });
+  }  
 }
