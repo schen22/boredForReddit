@@ -1,6 +1,6 @@
 Current working version demo:
 
-![alt text](https://im2.ezgif.com/tmp/ezgif-2-7441eb611db3.gif)
+![demo](https://media.giphy.com/media/lSbPJT0zacWRBReCiX/giphy.gif)
 
 ## generate [gRPC code](https://grpc.io/docs/quickstart/dart/)
 
